@@ -5,32 +5,52 @@ const projects = [
     title: "Awesome Solar",
     category: "Website",
     image: "image/awesome-solar.png",
-    description: "Designed and developed a modern solar energy landing page with a responsive layout, engaging visuals, smooth interactions, and reusable components using HTML, CSS, and JavaScript.",
-    technologies: [
-        "HTML",
-        "CSS",
-        "JavaScript"
-    ],
+    description:
+      "Designed and developed a modern solar energy landing page with a responsive layout, engaging visuals, smooth interactions, and reusable components using HTML, CSS, and JavaScript.",
+    technologies: ["HTML", "CSS", "JavaScript"],
     github: "https://github.com/dammy-peter/AwesomeSolar",
     live: "https://awesome-solar.vercel.app/",
     features: [
-        "Responsive design",
-        "Interactive hero section",
-        "Image slider",
-        "Service sections",
-        "Newsletter subscription",
-        "Modern UI/UX"
-    ]
-  }
+      "Responsive design",
+      "Interactive hero section",
+      "Image slider",
+      "Service sections",
+      "Newsletter subscription",
+      "Modern UI/UX",
+    ],
+  },
+
+  {
+    id: 2,
+    title: "Awesome Shot It",
+    category: "Website",
+    image: "image/Awesome-shotit.jpg",
+    description:
+      "Awesome Shot is a modern photography website designed to showcase professional photography services, portfolios, and memorable moments through a clean, visually engaging experience.",
+    technologies: ["HTML", "CSS", "JavaScript"],
+    github: "https://github.com/dammy-peter/Awesome-shot-it.git",
+    live: "https://awesome-shot-it.vercel.app/",
+    features: [
+      "Multi-page website architecture",
+      "Responsive design",
+      "Photography portfolio & galleries",
+      "Interactive image slider",
+      "Photography services showcase",
+      "Booking & contact functionality",
+      "Testimonials section",
+      "Newsletter subscription",
+      "Modern UI/UX",
+    ],
+  },
   // STEP 1: Duplicate this object to add a new project
   // STEP 2: Replace the values inside the curly braces {}
   // STEP 3: Save the file - the new project will appear automatically!
 ];
 
 // ===================== RENDER PROJECTS =====================
-const projectsGrid = document.getElementById('projectsGrid');
-const filterButtons = document.querySelectorAll('.filter-btn');
-const searchInput = document.getElementById('searchInput');
+const projectsGrid = document.getElementById("projectsGrid");
+const filterButtons = document.querySelectorAll(".filter-btn");
+const searchInput = document.getElementById("searchInput");
 
 function renderProjects(projectsToRender) {
   if (!projectsToRender || projectsToRender.length === 0) {
@@ -43,7 +63,9 @@ function renderProjects(projectsToRender) {
     return;
   }
 
-  projectsGrid.innerHTML = projectsToRender.map(project => `
+  projectsGrid.innerHTML = projectsToRender
+    .map(
+      (project) => `
     <div class="project-card" data-category="${project.category}" data-title="${project.title.toLowerCase()}">
       <div class="project-card__image">
         <img src="${project.image}" alt="${project.title} screenshot" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400/1a1a1a/3b82f6?text=Project+Image'" />
@@ -56,24 +78,29 @@ function renderProjects(projectsToRender) {
         <h3>${project.title}</h3>
         <p>${project.description}</p>
         <div class="project-card__tech">
-          ${project.technologies.map(tech => `<span>${tech}</span>`).join('')}
+          ${project.technologies.map((tech) => `<span>${tech}</span>`).join("")}
         </div>
       </div>
     </div>
-  `).join('');
+  `,
+    )
+    .join("");
 }
 
 // ===================== FILTER PROJECTS =====================
 function filterProjects() {
   const searchTerm = searchInput.value.toLowerCase();
-  const activeFilter = document.querySelector('.filter-btn.active');
-  const filter = activeFilter ? activeFilter.dataset.filter : 'all';
+  const activeFilter = document.querySelector(".filter-btn.active");
+  const filter = activeFilter ? activeFilter.dataset.filter : "all";
 
-  const filtered = projects.filter(project => {
-    const matchesCategory = filter === 'all' || project.category === filter;
-    const matchesSearch = project.title.toLowerCase().includes(searchTerm) ||
-                          project.description.toLowerCase().includes(searchTerm) ||
-                          project.technologies.some(tech => tech.toLowerCase().includes(searchTerm));
+  const filtered = projects.filter((project) => {
+    const matchesCategory = filter === "all" || project.category === filter;
+    const matchesSearch =
+      project.title.toLowerCase().includes(searchTerm) ||
+      project.description.toLowerCase().includes(searchTerm) ||
+      project.technologies.some((tech) =>
+        tech.toLowerCase().includes(searchTerm),
+      );
     return matchesCategory && matchesSearch;
   });
 
@@ -81,82 +108,78 @@ function filterProjects() {
 }
 
 // ===================== FILTER BUTTONS =====================
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    filterButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    filterButtons.forEach((btn) => btn.classList.remove("active"));
+    button.classList.add("active");
     filterProjects();
   });
 });
 
 // ===================== SEARCH =====================
-searchInput.addEventListener('input', filterProjects);
+searchInput.addEventListener("input", filterProjects);
 
 // ===================== MODAL =====================
-const modal = document.getElementById('projectModal');
-const modalOverlay = document.getElementById('modalOverlay');
-const modalClose = document.getElementById('modalClose');
-const modalImage = document.getElementById('modalImage');
-const modalTitle = document.getElementById('modalTitle');
-const modalDescription = document.getElementById('modalDescription');
-const modalFeatures = document.getElementById('modalFeatures');
-const modalTech = document.getElementById('modalTech');
-const modalLive = document.getElementById('modalLive');
-const modalGithub = document.getElementById('modalGithub');
+const modal = document.getElementById("projectModal");
+const modalOverlay = document.getElementById("modalOverlay");
+const modalClose = document.getElementById("modalClose");
+const modalImage = document.getElementById("modalImage");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalFeatures = document.getElementById("modalFeatures");
+const modalTech = document.getElementById("modalTech");
+const modalLive = document.getElementById("modalLive");
+const modalGithub = document.getElementById("modalGithub");
 
 function openModal(id) {
-  const project = projects.find(p => p.id === id);
+  const project = projects.find((p) => p.id === id);
+
   if (!project) return;
 
-  console.log(project.image);
+  console.log("Opening project:", project.title);
+  console.log("Image:", project.image);
 
-  modalImage.src = project.image + "?v=" + Date.now();
+  modalImage.src = project.image;
   modalImage.alt = `${project.title} screenshot`;
+
   modalTitle.textContent = project.title;
   modalDescription.textContent = project.description;
 
-  modalFeatures.innerHTML = project.features.map(feature => `<li>${feature}</li>`).join('');
-  modalTech.innerHTML = project.technologies.map(tech => `<span>${tech}</span>`).join('');
+  modalFeatures.innerHTML = project.features
+    .map((feature) => `<li>${feature}</li>`)
+    .join("");
+
+  modalTech.innerHTML = project.technologies
+    .map((tech) => `<span>${tech}</span>`)
+    .join("");
 
   modalLive.href = project.live;
   modalGithub.href = project.github;
 
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-
-  function openModal(id) {
-  const project = projects.find(p => p.id === id);
-  if (!project) return;
-
-  console.log(project.image);
-  console.log(modalImage);
-
-  modalImage.src = project.image;
-
-  
-}
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
-  modal.classList.remove('open');
-  document.body.style.overflow = '';
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
 }
 
 // Make functions globally accessible
 window.openModal = openModal;
 window.closeModal = closeModal;
 
-modalClose.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', closeModal);
+modalClose.addEventListener("click", closeModal);
+modalOverlay.addEventListener("click", closeModal);
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && modal.classList.contains('open')) {
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal.classList.contains("open")) {
     closeModal();
   }
 });
 
 // ===================== INITIAL RENDER =====================
 // Wait for DOM to be ready
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   renderProjects(projects);
 });
