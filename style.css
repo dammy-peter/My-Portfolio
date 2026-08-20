@@ -5,11 +5,6 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
 
 :root {
   --bg: #000000;
